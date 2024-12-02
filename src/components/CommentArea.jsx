@@ -1,6 +1,5 @@
 import { Component } from "react";
 import CommentList from "./CommentList";
-import AddComment from "./AddComment";
 
 class CommentArea extends Component {
   state = {
@@ -31,7 +30,6 @@ class CommentArea extends Component {
       <>
         <p>Sono COMMENT AREA</p>
         <CommentList reviews={this.state.reviews} />
-        <AddComment asin={this.props.asin} />
       </>
     );
   }

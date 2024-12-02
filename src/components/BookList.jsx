@@ -2,6 +2,8 @@ import { Col, Form, Row } from "react-bootstrap";
 import SingleBook from "./SingleBook";
 import { Component } from "react";
 
+import CommentArea from "./CommentArea";
+
 class BookList extends Component {
   state = {
     FilterQuery: ""
@@ -20,18 +22,26 @@ class BookList extends Component {
             />
           </Col>
         </Row>
+
         <Row>
-          {this.props.books
-            .filter((book) =>
-              book.title
-                .toLowerCase()
-                .includes(this.state.FilterQuery.toLowerCase())
-            )
-            .map((book) => (
-              <Col key={book.asin} sm={4} lg={3}>
-                <SingleBook book={book} />
-              </Col>
-            ))}
+          <Col md={9}>
+            <Row>
+              {this.props.books
+                .filter((book) =>
+                  book.title
+                    .toLowerCase()
+                    .includes(this.state.FilterQuery.toLowerCase())
+                )
+                .map((book) => (
+                  <Col key={book.asin} sm={4} lg={4}>
+                    <SingleBook book={book} />
+                  </Col>
+                ))}
+            </Row>
+          </Col>
+          <Col md={3}>
+            <CommentArea />
+          </Col>
         </Row>
       </>
     );
