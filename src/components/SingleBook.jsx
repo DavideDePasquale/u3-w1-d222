@@ -6,22 +6,22 @@ class SingleBook extends Component {
     selected: false
   };
   render() {
-    const { book } = this.props;
     return (
       <Container>
         <Card className={this.state.selected ? "border-danger" : ""}>
           <Card.Img
             variant="top"
-            src={book.img}
-            onClick={() =>
+            src={this.props.book.img}
+            onClick={() => {
               this.setState({
                 selected: !this.state.selected
-              })
-            }
+              });
+              this.props.changeSelectedAsin(this.props.book.asin);
+            }}
           />
 
           <Card.Body>
-            <Card.Title>{book.title}</Card.Title>
+            <Card.Title>{this.props.book.title}</Card.Title>
           </Card.Body>
         </Card>
       </Container>
