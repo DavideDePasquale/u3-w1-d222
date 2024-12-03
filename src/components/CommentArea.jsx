@@ -13,15 +13,18 @@ const CommentArea = (props) => {
     })
       .then((resp) => resp.json())
       .then((reviews) => {
-        setReviews(reviews);
+        setReviews({ reviews });
       });
   };
 
   useEffect(() => {
-    if (reviews.length === 0 || reviews[0].asin !== props.asin) {
-      getReview(); // Carica recensioni solo se l'asin è cambiato o non ci sono recensioni
+    if (props.asin) {
+      console.log("AAAAAA", getReview());
+    } else {
+      console.log("commenti non cambiati!!");
     }
-  }, [props.asin]);
+  });
+
   return (
     <>
       <p>Sono COMMENT AREA</p>

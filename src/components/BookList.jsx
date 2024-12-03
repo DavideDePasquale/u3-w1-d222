@@ -4,12 +4,12 @@ import SingleBook from "./SingleBook";
 import CommentArea from "./CommentArea";
 import { useState } from "react";
 
-const BookList = (props) => {
+const BookList = ({ books }) => {
   const [FilterQuery, setFilterQuery] = useState("");
-  const [selectedAsin, setSelectedAsin] = useState("");
+  const [selectedAsin, setSelectedAsin] = useState(null);
 
   const changeSelectedAsin = (newAsin) => {
-    setSelectedAsin({ newAsin });
+    setSelectedAsin(newAsin);
   };
 
   return (
@@ -20,7 +20,7 @@ const BookList = (props) => {
             type="text"
             placeholder="cerca i tuoi libri"
             value={FilterQuery}
-            onChange={(e) => setFilterQuery({ FilterQuery: e.target.value })}
+            onChange={(e) => setFilterQuery(e.target.value)}
           />
         </Col>
       </Row>
@@ -28,7 +28,7 @@ const BookList = (props) => {
       <Row>
         <Col md={8}>
           <Row>
-            {props.books
+            {books
               .filter((book) =>
                 book.title.toLowerCase().includes(FilterQuery.toLowerCase())
               )
