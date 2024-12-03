@@ -13,26 +13,19 @@ const CommentArea = (props) => {
     })
       .then((resp) => resp.json())
       .then((reviews) => {
-        setReviews({ reviews });
+        setReviews(reviews);
       });
   };
 
   useEffect(() => {
-    console.log("use effect al didMount");
-  }, []);
-
-  useEffect(() => {
-    if (setReviews.asin !== reviews.asin) {
-      console.log("AAAAAA");
-    } else {
-      console.log("commenti non cambiati!!");
+    if (reviews.length === 0 || reviews[0].asin !== props.asin) {
+      getReview(); // Carica recensioni solo se l'asin è cambiato o non ci sono recensioni
     }
-  });
-
+  }, [props.asin]);
   return (
     <>
       <p>Sono COMMENT AREA</p>
-      <CommentList reviews={[reviews]} />
+      <CommentList reviews={reviews} />
       <AddComment asin={props.asin} />
     </>
   );
