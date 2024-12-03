@@ -1,21 +1,18 @@
-import { Component } from "react";
+import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
+const AddComment = (props) => {
+  const [review, setReview] = useState({
+    comment: "",
+    rate: "1",
+    elementId: props.asin
+  });
 
-class AddComment extends Component {
-  state = {
-    review: {
-      comment: "",
-      rate: "1",
-      elementId: this.props.asin
-    }
-  };
-
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     fetch("https://striveschool-api.herokuapp.com/api/comments/", {
       method: "POST",
-      body: JSON.stringify(this.state.review),
+      body: JSON.stringify(review),
       headers: {
         "Content-Type": "application/json",
         Authorization:
@@ -27,50 +24,50 @@ class AddComment extends Component {
       }
     });
   };
-  render() {
-    return (
-      <Form onSubmit={this.handleSubmit}>
-        <h6 className="mt-4">Aggiungi un commento</h6>
-        <Form.Group
-          className="mb-3"
-          controlId="review-text"
-          value={this.state.review.comment}
-          onChange={(e) =>
-            this.setState({
-              review: { ...this.state.review, comment: e.target.value }
-            })
-          }
-          required
-        >
-          <Form.Label></Form.Label>
-          <Form.Control type="text" placeholder="inserisci la tua rec" />
-        </Form.Group>
-        <Form.Group
-          className="mb-3"
-          controlId="review-rating"
-          value={this.state.review.rate}
-          onChange={(e) =>
-            this.setState({
-              review: { ...this.state.review, rate: e.target.value }
-            })
-          }
-          required
-        >
-          <Form.Label>Voto Libro</Form.Label>
 
-          <Form.Select aria-label="Default select example">
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-            <option value="4">Four</option>
-            <option value="5">Five</option>
-          </Form.Select>
-        </Form.Group>
-        <Button variant="success" type="submit">
-          Invia Recensione
-        </Button>
-      </Form>
-    );
-  }
-}
+  return (
+    <Form onSubmit={handleSubmit}>
+      <h6 className="mt-4">Aggiungi un commento</h6>
+      <Form.Group
+        className="mb-3"
+        controlId="review-text"
+        value={review.comment}
+        onChange={(e) =>
+          setReview({
+            review: { ...review, comment: e.target.value }
+          })
+        }
+        required
+      >
+        <Form.Label></Form.Label>
+        <Form.Control type="text" placeholder="inserisci la tua rec" />
+      </Form.Group>
+      <Form.Group
+        className="mb-3"
+        controlId="review-rating"
+        value={review.rate}
+        onChange={(e) =>
+          setReview({
+            review: { ...review, rate: e.target.value }
+          })
+        }
+        required
+      >
+        <Form.Label>Voto Libro</Form.Label>
+
+        <Form.Select aria-label="Default select example">
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+          <option value="4">Four</option>
+          <option value="5">Five</option>
+        </Form.Select>
+      </Form.Group>
+      <Button variant="success" type="submit">
+        Invia Recensione
+      </Button>
+    </Form>
+  );
+};
+
 export default AddComment;

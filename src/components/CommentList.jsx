@@ -1,6 +1,6 @@
 import { Badge, ListGroup } from "react-bootstrap";
 
-const CommentList = ({reviews}) => ( 
+const CommentList = ([reviews]) => ( 
   <>
     <h5 className="mt-2">RECENSIONI:</h5>
     <ListGroup>
